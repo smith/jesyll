@@ -1,6 +1,6 @@
 {
     "name": "jesyll",
-    "dependencies": ["narwhal", "markdown"],
+    "dependencies": ["narwhal", "json-template", "markdown"],
     "author": "Andy Chu (andy@chubot.org)",
     "description": "Static site generator based on Jekyll.",
     "keywords": ["doc", "documentation", "html", "markdown", "jsontemplate"]
