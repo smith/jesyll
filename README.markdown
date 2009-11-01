@@ -1,17 +1,19 @@
-*Jesyll* is a JavaScript version of
+**Jesyll** is a JavaScript version of
 [Jekyll](http://wiki.github.com/mojombo/jekyll).
 
 You give it a source tree of static files, and it transforms it to another
 directory tree, which is generally a static website.
 
+It's built on top of [JSON Template](http://code.google.com/p/json-template).
+
 Source File Scanner
 -------------------
 
-Any file with a path *not* beginning with _ or __ is *copied verbatim* to the
-destination.
+Any file with a path **not** beginning with _ or __ is **copied verbatim** to
+the destination.
 
 Anything beginning with _ is treated as potential source content, and is
-*transformed* instead of copied verbatim to the destination.
+**transformed** instead of copied verbatim to the destination.
 
 html, textile, markdown, jsont
 jsont and html are both ambiguous
@@ -28,7 +30,7 @@ For example, all of these are sources:
     src/_posts/Index.html
     src/_Intro.html  (an HTML fragment)
 
-These are both literal HTML files:
+But these are both literal HTML files, served exactly as is in the output:
 
     src/Intro.html
     src/posts/Intro.html
@@ -37,8 +39,8 @@ Any path starting with __ is ignored by the source content scanner.
 
 Special files in the source tree:
 
-  __layouts       Directory for top-level layouts (JSON Template files)
-  __config.json   Configuration file for this source tree
+    __layouts       Directory for top-level layouts (JSON Template files)
+    __config.json   Configuration file for this source tree
 
 __config.json
 -------------
@@ -76,8 +78,9 @@ This directory contains JSON Template files.
 Source Items
 ------------
 
-Source items define a JSON object, which is then expanded into a JSON Template.
-There more than one template expansion.
+**Source items** are the content you author.  They can be written in various
+formats, but *always* define a JSON object, which is then expanded into a JSON
+Template.  (There can be more than one template expansion.)
 
 Suppose you have a file called: `2009-10-28-Welcome-to-my-Nightmare.textile`
 with the contents "Welcome!"
@@ -90,7 +93,8 @@ This defines a source item:
       "source-type": "textile",
     }
 
-You can also define metadata in the "front matter" of the file, like this:
+You can define additional **metadata** in the "front matter" of the file, like
+this:
 
     ---
     date:      2009-10-28
@@ -101,7 +105,7 @@ You can also define metadata in the "front matter" of the file, like this:
     ---
     Welcome!
 
-This defines a source item:
+This represents the source item object:
 
     { "date"  : "2009-10-28",
       "author": "Alice"
@@ -109,13 +113,14 @@ This defines a source item:
       "body"  : "Welcome!"
     }
 
-Notice the $layout attribute is not part of the source item.  It is used by the Jesyll engine rather than by JSON Template.
+Notice the `$layout` attribute is not part of the source item.  It is used by
+the Jesyll engine rather than by JSON Template.
 
 Source Items As JSON
 --------------------
 
-Source items may also be defined using a JSON file rather than a flat file with
-front matter.
+Source items may also be defined using a **JSON file** rather than a flat file
+with front matter.
 
 Here's how to show a pretty version of the Jesyll source on the web:
 
@@ -140,4 +145,4 @@ source-code.jsont:
     {code|raw}
     </pre>
 
-In this case, $layout defaults to a JSON Template with a similar filename: jesyll-source.jsont.  We override it with a generic code template in this example.
+In this case, `$layout` defaults to a JSON Template with a similar filename: jesyll-source.jsont.  We override it with a generic code template in this example.
