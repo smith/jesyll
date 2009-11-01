@@ -23,15 +23,15 @@ source content, even if they don't start with _.  By default these are:
 
 For example, all of these are sources:
 
-src/FAQ.markdown
-src/FAQ.textile
-src/_posts/Index.html
-src/_Intro.html  (an HTML fragment)
+    src/FAQ.markdown
+    src/FAQ.textile
+    src/_posts/Index.html
+    src/_Intro.html  (an HTML fragment)
 
 These are both literal HTML files:
 
-src/Intro.html
-src/posts/Intro.html
+    src/Intro.html
+    src/posts/Intro.html
 
 Any path starting with __ is ignored by the source content scanner.
 
@@ -45,26 +45,28 @@ __config.json
 
 This can store default values for various flags.
 
-In addition it can store global template data, used in all JSON Template expansions:
+In addition it can store global template data, used in all JSON Template
+expansions:
 
-{ "dest-dir": "../my-site",
-  "layouts-dir": "~/my-jesyll-layouts",   # Default is {source-dir}/__layouts
-  "globals": {
-    "signature": "-- Andy",
-    "domain": "www.example.com"
-  },
-
-  # TODO:
-  pygments,
-  "more-converters": {
-    "markdown": "foo {filename}",
-    "textfile": "textfile {filename}",
-    "latex": "dot {filename}",
-    "dot": "dot {filename}",
-  }
-  # Lookup variables in here too
-  "$config-base": "~/my-jesyll-config.json"
-}
+    { "dest-dir": "../my-site",
+      # Default is {source-dir}/__layouts
+      "layouts-dir": "~/my-jesyll-layouts",   
+      "globals": {
+        "signature": "-- Andy",
+        "domain": "www.example.com"
+      },
+    
+      # TODO:
+      pygments,
+      "more-converters": {
+        "markdown": "foo {filename}",
+        "textfile": "textfile {filename}",
+        "latex": "dot {filename}",
+        "dot": "dot {filename}",
+      }
+      # Lookup variables in here too
+      "$config-base": "~/my-jesyll-config.json"
+    }
 
 __layouts
 ---------
@@ -77,33 +79,35 @@ Source Items
 Source items define a JSON object, which is then expanded into a JSON Template.
 There more than one template expansion.
 
-Suppose you have a file called: 2009-10-28-Welcome-to-my-Nightmare.textfile with the contents "Welcome!"
+Suppose you have a file called: `2009-10-28-Welcome-to-my-Nightmare.textile`
+with the contents "Welcome!"
 
 This defines a source item:
 
-{ "date" : "2009-10-28",
-  "title": "Welcome to my Nightmare",
-  "body" : "Welcome!"
-}
+    { "date" :       "2009-10-28",
+      "title":       "Welcome to my Nightmare",
+      "body" :       "Welcome!"
+      "source-type": "textile",
+    }
 
 You can also define metadata in the "front matter" of the file, like this:
 
----
-date:      2009-10-28
-author:    Alice
-title:     A different title
-published: no
-$layout:   pretty    # This doc will get expanded with __layouts/pretty.jsont
----
-Welcome!
+    ---
+    date:      2009-10-28
+    author:    Alice
+    title:     A different title
+    published: no
+    $layout:   pretty    # This doc will be expanded with __layouts/pretty.jsont
+    ---
+    Welcome!
 
 This defines a source item:
 
-{ "date"  : "2009-10-28",
-  "author": "Alice"
-  "title" : "A different title",
-  "body"  : "Welcome!"
-}
+    { "date"  : "2009-10-28",
+      "author": "Alice"
+      "title" : "A different title",
+      "body"  : "Welcome!"
+    }
 
 Notice the $layout attribute is not part of the source item.  It is used by the Jesyll engine rather than by JSON Template.
 
@@ -117,23 +121,23 @@ Here's how to show a pretty version of the Jesyll source on the web:
 
 jesyll-source.json:
 
-{ "date": "2009",
-  "filename": "jesyll-source.json",
-  "filepath": "doc/jesyll-source.json",
-  "$filename.code": "jesyll.js"
-  "$layout": "source-code.jsont"
-}
+    { "date": "2009",
+      "filename": "jesyll-source.json",
+      "filepath": "doc/jesyll-source.json",
+      "$filename.code": "jesyll.js"
+      "$layout": "source-code.jsont"
+    }
 
 Evaluates to:
 
-{ "code": "function jesyll() {}",    # Jesyll source code
-}
+    { "code": "function jesyll() {}",    # Jesyll source code
+    }
 
 source-code.jsont:
 
-Listing of <b>{filepath}</b>
-<pre>
-{code|raw}
-</pre>
+    Listing of <b>{filepath}</b>
+    <pre>
+    {code|raw}
+    </pre>
 
 In this case, $layout defaults to a JSON Template with a similar filename: jesyll-source.jsont.  We override it with a generic code template in this example.
