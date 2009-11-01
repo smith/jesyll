@@ -1,8 +1,11 @@
+Jesyll
+======
+
 **Jesyll** is a JavaScript version of
 [Jekyll](http://wiki.github.com/mojombo/jekyll).
 
-You give it a source tree of static files, and it transforms it to another
-directory tree, which is generally a static website.
+You give it a **source tree** of static files, and it transforms it to another
+directory tree, which is generally a **static website**.
 
 It's built on top of [JSON Template](http://code.google.com/p/json-template).
 
@@ -37,13 +40,12 @@ But these are both literal HTML files, served exactly as is in the output:
 
 Any path starting with __ is ignored by the source content scanner.
 
-Special files in the source tree:
+### Special files in the source tree:
 
     __layouts       Directory for top-level layouts (JSON Template files)
     __config.json   Configuration file for this source tree
 
-__config.json
--------------
+#### __config.json
 
 This can store default values for various flags.
 
@@ -70,10 +72,9 @@ expansions:
       "$config-base": "~/my-jesyll-config.json"
     }
 
-__layouts
----------
+#### __layouts
 
-This directory contains JSON Template files.
+This directory contains JSON Template files, that are referenced by the `$layout` attribute of **source items**.
 
 Source Items
 ------------
@@ -85,7 +86,7 @@ Template.  (There can be more than one template expansion.)
 Suppose you have a file called: `2009-10-28-Welcome-to-my-Nightmare.textile`
 with the contents "Welcome!"
 
-This defines a source item:
+This defines a source item with metadata attributes derived from the filename:
 
     { "date" :       "2009-10-28",
       "title":       "Welcome to my Nightmare",
@@ -105,7 +106,7 @@ this:
     ---
     Welcome!
 
-This represents the source item object:
+This represents the source item:
 
     { "date"  : "2009-10-28",
       "author": "Alice"
@@ -137,6 +138,9 @@ Evaluates to:
 
     { "code": "function jesyll() {}",    # Jesyll source code
     }
+
+The `$filename.code` notation is special: it means that the *value* of "code"
+attribute is the *contents* of the given filename.
 
 source-code.jsont:
 
