@@ -35,5 +35,24 @@ exports.testObject = function() {
     print("options: " + options.a + " " + options.b + " " + options.c);
 }
 
+exports.testComposite = function() {
+    var defaults = {a: 0, b: 0, c: 0};
+    var config = {a: 100, b: 200};
+    var flags = {a: 3, c: 5};
+
+    var c = Composite(defaults, config, flags);
+
+    print("c: " + c.get('a') + " " + c.get('b') + " " + c.get('c'));
+    assert.isEqual(c.get('a'), 3);
+    assert.isEqual(c.get('b'), 200);
+    assert.isEqual(c.get('c'), 5);
+
+    var flags2 = {};
+    var c = new Composite(defaults, config, flags2);
+    assert.isEqual(c.get('a'), 100);
+    assert.isEqual(c.get('b'), 200);
+    assert.isEqual(c.get('c'), 0);
+}
+
 if (require.main === module.id)
     require("test/runner").run(exports);
