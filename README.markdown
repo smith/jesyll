@@ -53,8 +53,13 @@ In addition it can store global template data, used in all JSON Template
 expansions:
 
     { "dest-dir": "../my-site",
+
       # Default is {source-dir}/__layouts
       "layouts-dir": "~/my-jesyll-layouts",   
+
+      # Default is "default", meaning __layouts/default.jsont is used
+      "default-layout": "html",
+
       "globals": {
         "signature": "-- Andy",
         "domain": "www.example.com"
