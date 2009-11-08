@@ -3,11 +3,6 @@ var assert = require("test/assert"),
     json = require("json"),
     jesyll = require("jesyll");
 
-
-exports.testParseSourceDoc = function() {
-    assert.isEqual("foo", jesyll.parseSourceDoc("foo"));
-}
-
 exports.testParseMetadata = function() {
     assert.eq(
         {title: "Title", layout: "Layout"},
