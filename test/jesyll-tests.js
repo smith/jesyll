@@ -51,8 +51,10 @@ exports.testComposite = function() {
 }
 
 exports.testWalk = function() {
-    return;
-    var c = jesyll.Walk(file.path('.'));
+    var paths = jesyll.walk(file.path('.'));
+    for (var i=0; i<paths.length; i++) {
+      print(paths[i]);
+    }
 }
 
 if (require.main === module.id)
