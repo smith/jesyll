@@ -119,8 +119,13 @@ This represents the source item:
       "body"  : "Welcome!"
     }
 
-Notice the `$layout` attribute is not part of the source item.  It is used by
-the Jesyll engine rather than by JSON Template.
+Notice:
+
+* The metadata (date, title, source-type) in the file takes precedence over the
+  metadata in the filename.  (This lets you have "clean URLs" without
+  extensions, among other things)
+* The `$layout` attribute is not part of the source item.  It is used by
+  the Jesyll engine rather than by JSON Template.
 
 Source Items As JSON
 --------------------
