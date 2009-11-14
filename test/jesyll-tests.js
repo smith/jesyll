@@ -9,6 +9,20 @@ exports.testParseMetadata = function() {
         jesyll.parseMetadata(["  title: Title \n", " layout: Layout \n"]));
 }
 
+exports.testExtractMetadata = function() {
+    assert.eq(
+        {year: 2009, month: 11, day: 11, title: "Welcome to Jesyll"},
+        jesyll.extractMetadata("2009-11-11-Welcome-to-Jesyll"));
+    assert.eq(
+        {year: 2009, month: 11, day: 11, title: "Welcome to Jesyll",
+         "source-type": "textile"},
+        jesyll.extractMetadata("2009-11-11-Welcome-to-Jesyll.textile"));
+    assert.eq(
+        {title: "Welcome to Jesyll", "source-type": "textile"},
+        jesyll.extractMetadata("Welcome-to-Jesyll.textile"));
+}
+
+
 // Demo of Object.create, for posterity
 exports.testObject = function() {
     var b = {x:1, y:1};
@@ -51,6 +65,7 @@ exports.testComposite = function() {
 }
 
 exports.testWalk = function() {
+    return;  // DISABLED
     var paths = jesyll.walk(file.path('.'));
     for (var i=0; i<paths.length; i++) {
       print(paths[i]);
