@@ -20,6 +20,9 @@ exports.testExtractMetadata = function() {
     assert.eq(
         {title: "Welcome to Jesyll", "source-type": "textile"},
         jesyll.extractMetadata("Welcome-to-Jesyll.textile"));
+    assert.eq(
+        {title: "Welcome to Jesyll"},
+        jesyll.extractMetadata("Welcome-to-Jesyll"));
 }
 
 
