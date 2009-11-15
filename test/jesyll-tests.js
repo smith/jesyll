@@ -69,7 +69,8 @@ exports.testComposite = function() {
 
 exports.testWalk = function() {
     return;  // DISABLED
-    var paths = jesyll.walk(file.path('.'));
+    //var paths = jesyll.walk('.');
+    var paths = jesyll.walk('/home/andy/hg/json-template');
     for (var i=0; i<paths.length; i++) {
       print(paths[i]);
     }
