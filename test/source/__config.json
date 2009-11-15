@@ -1,0 +1,4 @@
+# Test config file
+
+{ "dest-dir": "../config-dest" 
+}
