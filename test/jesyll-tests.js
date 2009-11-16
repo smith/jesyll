@@ -79,5 +79,10 @@ exports.testWalk = function() {
     }
 }
 
+exports.testFileSystem = function() {
+    var fs = jesyll.FileSystem('');
+    print(fs.list());
+}
+
 if (require.main === module.id)
     require("test/runner").run(exports);
