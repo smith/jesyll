@@ -9,11 +9,10 @@ exports.testParseMetadata = function() {
         jesyll.parseMetadata(["  title: Title \n", " layout: Layout \n"]));
 }
 
-// TODO: Remove leading _ from the titles
 exports.testExtractMetadata = function() {
     assert.eq(
         {year: 2009, month: 11, day: 11, title: "Welcome to Jesyll"},
-        jesyll.extractMetadata("2009-11-11-Welcome-to-Jesyll"));
+        jesyll.extractMetadata("_2009-11-11-Welcome-to-Jesyll"));
     assert.eq(
         {year: 2009, month: 11, day: 11, title: "Welcome to Jesyll",
          "source-type": "textile"},
@@ -24,6 +23,9 @@ exports.testExtractMetadata = function() {
     assert.eq(
         {title: "Welcome to Jesyll"},
         jesyll.extractMetadata("Welcome-to-Jesyll"));
+    assert.eq(
+        {title: "Welcome to Jesyll"},
+        jesyll.extractMetadata("__Welcome-to-Jesyll"));
 }
 
 
