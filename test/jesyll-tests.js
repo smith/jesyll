@@ -85,9 +85,13 @@ exports.testFileSystem = function() {
     print(fs.open('nw.sh', 'r'));
     //fs.mkdir('junk');
 
-    fs = jesyll.FileSystem('lib');
+    fs = jesyll.FileSystem('/usr/');
     print(fs.path());
     print(fs.path('foo'));
+    assert.eq(fs.path(), '/usr/')
+
+    fs = jesyll.FileSystem('/usr');
+    assert.eq(fs.path(), '/usr/')
 }
 
 if (require.main === module.id)
