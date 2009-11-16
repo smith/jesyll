@@ -82,6 +82,12 @@ exports.testWalk = function() {
 exports.testFileSystem = function() {
     var fs = jesyll.FileSystem('');
     print(fs.list());
+    print(fs.open('nw.sh', 'r'));
+    //fs.mkdir('junk');
+
+    fs = jesyll.FileSystem('lib');
+    print(fs.path());
+    print(fs.path('foo'));
 }
 
 if (require.main === module.id)
