@@ -1,3 +1,4 @@
-{ "title": "Hello in JSON"
-  "content": "This document is rendered via a JSON source"
+{ "title": "Hello in JSON",
+  "$filename.code": "foo.py",
+  "$template": "pretty-source-code"
   }
