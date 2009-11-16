@@ -89,9 +89,11 @@ exports.testFileSystem = function() {
     print(fs.path());
     print(fs.path('foo'));
     assert.eq(fs.path(), '/usr/')
+    assert.eq(fs.path('lib'), '/usr/lib')
 
     fs = jesyll.FileSystem('/usr');
     assert.eq(fs.path(), '/usr/')
+    assert.eq(fs.path('lib'), '/usr/lib')
 }
 
 if (require.main === module.id)
