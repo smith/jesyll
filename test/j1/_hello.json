@@ -1,4 +1,11 @@
 { "title": "Hello in JSON",
-  "$filename.code": "foo.py",
+  # TODO: Expand templates
+  "$template.raw": "{raw-base}hello.py/",
+  "$template.live": "{live-base}hello.py",
+  "$filename.code": "hello.py",
+
+  "raw": "dummy raw",
+  "live": "dummy live",
+
   "$template": "pretty-source-code"
   }

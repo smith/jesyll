@@ -1,11 +1,11 @@
 default-formatter: html
 
 <p>
-<b>This CGI script as a live example</b>: {live|plain-url}
+<b>This CGI script as a live example</b>: {#TODO live|plain-url} {live}
 </p>
 
 <p>
-<b>Raw Source Code</b>: {raw|plain-url}
+<b>Raw Source Code</b>: {#TODO raw|plain-url} {raw}
 </p>
 
 <pre class="prettyprint literal lang-py">{code}</pre>
