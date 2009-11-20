@@ -3,10 +3,10 @@ var assert = require("test/assert"),
     json = require("json"),
     jesyll = require("jesyll");
 
-exports.testParseMetadata = function() {
+exports.testParseFrontMatter = function() {
     assert.eq(
         {title: "Title", layout: "Layout"},
-        jesyll.parseMetadata(["  title: Title \n", " layout: Layout \n"]));
+        jesyll.parseFrontMatter(["  title: Title \n", " layout: Layout \n"]));
 }
 
 exports.testExtractMetadata = function() {
