@@ -2,7 +2,7 @@
   # TODO: Expand templates
   "$template.raw": "{raw-base}hello.py/",
   "$template.live": "{live-base}hello.py",
-  "$filename.code": "hello.py",
+  "$filename:code": "hello.py",
 
   "raw": "dummy raw",
   "live": "dummy live",
