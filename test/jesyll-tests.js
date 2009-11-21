@@ -2,6 +2,7 @@ var assert = require("test/assert"),
     file = require("file"),
     json = require("json"),
     jesyll = require("jesyll");
+    util = require("jesyll/util");
 
 exports.testParseFrontMatter = function() {
     assert.eq(
@@ -56,7 +57,7 @@ exports.testComposite = function() {
     var config = {a: 100, b: 200};
     var flags = {a: 3, c: 5};
 
-    var c = jesyll.Composite(defaults, config, flags);
+    var c = util.ObjComposite(defaults, config, flags);
 
     print("c: " + c.get('a') + " " + c.get('b') + " " + c.get('c'));
     assert.isEqual(c.get('a'), 3);
@@ -64,7 +65,7 @@ exports.testComposite = function() {
     assert.isEqual(c.get('c'), 5);
 
     var flags2 = {};
-    var c = new jesyll.Composite(defaults, config, flags2);
+    var c = new util.ObjComposite(defaults, config, flags2);
     assert.isEqual(c.get('a'), 100);
     assert.isEqual(c.get('b'), 200);
     assert.isEqual(c.get('c'), 0);
