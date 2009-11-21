@@ -1,0 +1,5 @@
+# The 'body' field is expanded with the rest of the doc
+{ "body-type": "jsont",
+  "body": "Hello from <b>{name}</b>",
+  "name": "JSON Template"
+}

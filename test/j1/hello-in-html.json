@@ -1,0 +1,3 @@
+# Every field besides 'body' has default values
+{ "body": "Hello from <b>HTML</b>"
+}
