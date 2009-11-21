@@ -1,11 +1,11 @@
 { "title": "Hello in JSON",
+
   # TODO: Expand templates
-  "$template.raw": "{raw-base}hello.py/",
-  "$template.live": "{live-base}hello.py",
+  "$template/raw": "{raw-base}hello.py/",
+  "$template/live": "{live-base}hello.py",
   "$filename/code": "hello.py",
 
-  "raw": "dummy raw",
-  "live": "dummy live",
-
-  "$template": "pretty-source-code"
+  "$template": "pretty-source-code",
+  # Configuration for Jesyll, not document data
+  ".hidden": true
   }
