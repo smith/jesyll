@@ -96,7 +96,7 @@ This defines a source item with metadata attributes derived from the filename:
     { "date" :       "2009-10-28",
       "title":       "Welcome to my Nightmare",
       "body" :       "Welcome!"
-      "source-type": "textile",
+      "body-type":   "textile",
     }
 
 You can define additional **metadata** in the "front matter" of the file, like
@@ -121,7 +121,7 @@ This represents the source item:
 
 Notice:
 
-* The metadata (date, title, source-type) in the file takes precedence over the
+* The metadata (date, title, body-type) in the file takes precedence over the
   metadata in the filename.  (This lets you have "clean URLs" without
   extensions, among other things)
 * The `$layout` attribute is not part of the source item.  It is used by

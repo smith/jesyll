@@ -22,15 +22,15 @@ exports.testExtractMetadata = function() {
         { year: 2009, month: 11, day: 11, title: "Welcome to Jesyll",
           filename: "2009-11-11-Welcome-to-Jesyll.textile", ext: "textile",
           "relative-path": "bar/baz/2009-11-11-Welcome-to-Jesyll.textile",
-          "source-type": "textile"
+          "body-type": "textile"
         },
         jesyll.extractMetadata("bar/baz/2009-11-11-Welcome-to-Jesyll.textile"));
 
     assert.eq(
-        { title: "Welcome to Jesyll", "source-type": "textile",
+        { title: "Welcome to Jesyll", "body-type": "textile",
           filename: "Welcome-to-Jesyll.textile", ext: "textile",
           "relative-path": "spam/Welcome-to-Jesyll.textile",
-          "source-type": "textile"
+          "body-type": "textile"
         },
         jesyll.extractMetadata("spam/Welcome-to-Jesyll.textile"));
 
