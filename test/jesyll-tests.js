@@ -12,20 +12,40 @@ exports.testParseFrontMatter = function() {
 
 exports.testExtractMetadata = function() {
     assert.eq(
-        {year: 2009, month: 11, day: 11, title: "Welcome to Jesyll"},
-        jesyll.extractMetadata("_2009-11-11-Welcome-to-Jesyll"));
+        { year: 2009, month: 11, day: 11, title: "Welcome to Jesyll",
+          filename: "_2009-11-11-Welcome-to-Jesyll", ext: "",
+          "relative-path": "foo/_2009-11-11-Welcome-to-Jesyll",
+        },
+        jesyll.extractMetadata("foo/_2009-11-11-Welcome-to-Jesyll"));
+
     assert.eq(
-        {year: 2009, month: 11, day: 11, title: "Welcome to Jesyll",
-         "source-type": "textile"},
-        jesyll.extractMetadata("2009-11-11-Welcome-to-Jesyll.textile"));
+        { year: 2009, month: 11, day: 11, title: "Welcome to Jesyll",
+          filename: "2009-11-11-Welcome-to-Jesyll.textile", ext: "textile",
+          "relative-path": "bar/baz/2009-11-11-Welcome-to-Jesyll.textile",
+          "source-type": "textile"
+        },
+        jesyll.extractMetadata("bar/baz/2009-11-11-Welcome-to-Jesyll.textile"));
+
     assert.eq(
-        {title: "Welcome to Jesyll", "source-type": "textile"},
-        jesyll.extractMetadata("Welcome-to-Jesyll.textile"));
+        { title: "Welcome to Jesyll", "source-type": "textile",
+          filename: "Welcome-to-Jesyll.textile", ext: "textile",
+          "relative-path": "spam/Welcome-to-Jesyll.textile",
+          "source-type": "textile"
+        },
+        jesyll.extractMetadata("spam/Welcome-to-Jesyll.textile"));
+
     assert.eq(
-        {title: "Welcome to Jesyll"},
+        { title: "Welcome to Jesyll" ,
+          filename: "Welcome-to-Jesyll", ext: "",
+          "relative-path": "Welcome-to-Jesyll"
+        },
         jesyll.extractMetadata("Welcome-to-Jesyll"));
+
     assert.eq(
-        {title: "Welcome to Jesyll"},
+        { title: "Welcome to Jesyll",
+          filename: "__Welcome-to-Jesyll", ext: "",
+          "relative-path": "__Welcome-to-Jesyll"
+        },
         jesyll.extractMetadata("__Welcome-to-Jesyll"));
 }
 
