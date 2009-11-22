@@ -35,10 +35,14 @@ exports.testObjectStack = function() {
     assert.isEqual(c.get('c'), 5);
 
     var flags2 = {};
-    var c = new util.ObjComposite(defaults, config, flags2);
+    var c = new util.ObjectStack(defaults, config, flags2);
     assert.isEqual(c.get('a'), 100);
     assert.isEqual(c.get('b'), 200);
     assert.isEqual(c.get('c'), 0);
+
+    assert.isEqual(
+        c.toObject(),
+        { a: 100, b: 200, c: 0 });
 }
 
 
