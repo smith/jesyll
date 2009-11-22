@@ -38,19 +38,33 @@ exports.testVarStack = function() {
         { a: 100, b: 200, c: 0 });
 }
 
-exports.testObjectStackTemplates = function() {
+exports.testVarStackTemplates = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", $spam: "spam is {foo}"};
 
     var c = util.VarStack(o1, o2);
 
     assert.isEqual(c.get('foo'), 'ham');
+    // The template is on the same level as the variable here
     assert.isEqual(c.get('spam'), 'spam is ham');
 
     // Here I change the template
     var o3 = {foo: "ham", $spam: "spam is not {foo}"};
     c.push(o3);
     assert.isEqual(c.get('spam'), 'spam is not ham');
+}
+
+exports.testVarStackDoubleTemplates = function() {
+    var o1 = {baseUrl: "http://foo", spam: "eggs"};
+    var o2 = {$url: "{baseUrl}/index.html"};
+    var o3 = {$link: '<a href="{baseUrl}">Link</a>"'};
+
+    var vars = util.VarStack(o1, o2);
+
+    assert.isEqual('http://foo/index.html', vars.get('url'));
+
+    assert.isEqual(
+        '<a href="http://foo/index.html">Link</a>', vars.get('link'));
 }
 
 exports.testTemplateBelowValue= function() {
