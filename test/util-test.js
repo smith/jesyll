@@ -29,7 +29,6 @@ exports.testObjectStack = function() {
 
     var c = util.ObjectStack(defaults, config, flags);
 
-    print("c: " + c.get('a') + " " + c.get('b') + " " + c.get('c'));
     assert.isEqual(c.get('a'), 3);
     assert.isEqual(c.get('b'), 200);
     assert.isEqual(c.get('c'), 5);
@@ -56,6 +55,36 @@ exports.testObjectStack = function() {
     assert.eq(
         c.toObject(),
         { a: 100, b: 200, c: 0 });
+}
+
+exports.testObjectStackTemplates = function() {
+    var o1 = {foo: "bar", spam: "eggs"};
+    var o2 = {foo: "ham", $spam: "spam is {foo}"};
+
+    var c = util.ObjectStack(o1, o2);
+
+    assert.isEqual(c.get('foo'), 'ham');
+    assert.isEqual(c.get('spam'), 'spam is ham');
+
+    // Here I change the template
+    var o3 = {foo: "ham", $spam: "spam is not {foo}"};
+    c.push(o3);
+    assert.isEqual(c.get('spam'), 'spam is not ham');
+}
+
+exports.testTemplateBelowValue= function() {
+    var o1 = {foo: "bar", spam: "eggs"};
+    var o2 = {foo: "ham", $spam: "spam is {foo}"};
+
+    var c = util.ObjectStack(o1, o2);
+
+    assert.isEqual(c.get('foo'), 'ham');
+    assert.isEqual(c.get('spam'), 'spam is ham');
+
+    // Here I change the value from the template
+    var o3 = {foo: "spam"};
+    c.push(o3);
+    assert.isEqual('spam is spam', c.get('spam'));
 }
 
 
