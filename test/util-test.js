@@ -87,6 +87,31 @@ exports.testTemplateBelowValue= function() {
     assert.isEqual('spam is spam', c.get('spam'));
 }
 
+exports.testTemplateWithFileSystem= function() {
+    var o1 = {foo: "bar", spam: "eggs"};
+    var o2 = {foo: "ham", '&spam': "spam-file.txt"};
+
+    var c = util.ObjectStack(o1, o2);
+
+    assert.isEqual(c.get('foo'), 'ham');
+    try {
+      c.get('spam');
+    } catch (e) {
+      assert.eq('NoFileSystem', e.name);
+      var gotError = true;
+    }
+    assert.eq(true, gotError);
+
+    var fs = {
+      contentsOf: function(name) {
+        return '<file contents>';
+      }
+    }
+    var c = util.ObjectStack(o1, o2).useFileSystem(fs);
+    assert.isEqual('ham', c.get('foo'));
+    assert.isEqual('<file contents>', c.get('spam'));
+}
+
 
 if (require.main === module.id)
     require("test/runner").run(exports);
