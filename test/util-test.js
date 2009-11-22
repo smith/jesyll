@@ -112,6 +112,27 @@ exports.testTemplateWithFileSystem= function() {
     assert.isEqual('<file contents>', c.get('spam'));
 }
 
+exports.testPrepend = function() {
+    var o3 = {foo: "bar", spam: "eggs"},
+        o4 = {foo: "ham", $spam: "spam is {foo}"};
+
+    var c = util.VarStack(o3, o4);
+
+    assert.isEqual(c.get('foo'), 'ham');
+    assert.isEqual(c.get('spam'), 'spam is ham');
+
+    var o1 = {name: "bob", age: 10},
+        o2 = {name: "carol"};
+
+    // Order is: o1, o2, o3, o4
+    c.prepend(o1, o2);
+
+    assert.isEqual(c.get('foo'), 'ham');
+    assert.isEqual(c.get('spam'), 'spam is ham');
+    assert.isEqual('carol', c.get('name'));
+    assert.isEqual(10, c.get('age'));
+}
+
 
 if (require.main === module.id)
     require("test/runner").run(exports);
