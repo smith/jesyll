@@ -68,6 +68,31 @@ exports.testTemplateBelowValue= function() {
     assert.isEqual('spam is spam', c.get('spam'));
 }
 
+exports.testTemplateTakesPrecedenceOverValue = function() {
+    var o1 = {foo: "bar", spam: "eggs"};
+    var o2 = {$foo: "{spam}"};
+
+    var c = util.VarStack(o1);
+
+    assert.isEqual('bar', c.get('foo'));
+
+    c.push(o2);
+    assert.isEqual('eggs', c.get('foo'));
+
+    c.pop();
+    assert.isEqual('bar', c.get('foo'));
+}
+
+exports.testInfiniteLoop = function() {
+    var o1 = {foo: "bar", spam: "eggs"};
+    var o2 = {$foo: "{foo}"};
+
+    var c = util.VarStack(o1, o2);
+    print('RUNNING');
+
+    assert.isEqual('eggs', c.get('foo'));
+}
+
 exports.testTemplateWithFileSystem= function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", '&spam': "spam-file.txt"};
