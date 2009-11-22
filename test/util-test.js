@@ -49,6 +49,14 @@ exports.testObjectStack = function() {
     assert.eq(
         c.toObject(),
         { a: 199, b: 200, c: 0, d: 99 });
+
+    var top = c.pop();
+    assert.eq(top, {a: 199, d: 99});
+
+    // The same as it was before
+    assert.eq(
+        c.toObject(),
+        { a: 100, b: 200, c: 0 });
 }
 
 
