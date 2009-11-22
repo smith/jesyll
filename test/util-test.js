@@ -36,7 +36,6 @@ exports.testObjectStack = function() {
 
     var flags2 = {};
     var c = new util.ObjectStack(defaults, config, flags2);
-    print('PUSH ' + c.push);
     assert.isEqual(c.get('a'), 100);
     assert.isEqual(c.get('b'), 200);
     assert.isEqual(c.get('c'), 0);
