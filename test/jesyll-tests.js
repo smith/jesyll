@@ -85,6 +85,8 @@ exports.testFileSystem = function() {
     print(fs.list());
     print(fs.open('nw.sh', 'r'));
     //fs.mkdir('junk');
+    //assert.eq('ds', fs.contentsOf('nw.sh1'));
+    //assert.eq('ds', fs.contentsOf('nw.sh'));
 
     fs = jesyll.FileSystem('/usr/');
     print(fs.path());
@@ -95,6 +97,7 @@ exports.testFileSystem = function() {
     fs = jesyll.FileSystem('/usr');
     assert.eq(fs.path(), '/usr/')
     assert.eq(fs.path('lib'), '/usr/lib')
+
 }
 
 if (require.main === module.id)
