@@ -1,5 +1,5 @@
 ---
-$filename/code: hello.py
+&code: hello.py
 ---
 <p>
 Here is a global: <b>{font-size}</b>
