@@ -3,38 +3,45 @@
 var assert = require("test/assert"),
     util = require("jesyll/util");
 
+exports.setup = function() {
+  exports.defaults = {a: 0, b: 0, c: 0};
+  exports.config = {a: 100, b: 200};
+  exports.flags = {a: 3, c: 5};
+
+  exports.vars = util.VarStack(exports.defaults, exports.config, exports.flags);
+}
+
 exports.testVarStack = function() {
-    var defaults = {a: 0, b: 0, c: 0};
-    var config = {a: 100, b: 200};
-    var flags = {a: 3, c: 5};
+    var vars = exports.vars;
 
-    var c = util.VarStack(defaults, config, flags);
+    assert.isEqual(vars.get('a'), 3);
+    assert.isEqual(vars.get('b'), 200);
+    assert.isEqual(vars.get('c'), 5);
 
-    assert.isEqual(c.get('a'), 3);
-    assert.isEqual(c.get('b'), 200);
-    assert.isEqual(c.get('c'), 5);
+    vars = new util.VarStack(exports.defaults, exports.config, {});
+    assert.isEqual(vars.get('a'), 100);
+    assert.isEqual(vars.get('b'), 200);
+    assert.isEqual(vars.get('c'), 0);
+}
 
-    var flags2 = {};
-    var c = new util.VarStack(defaults, config, flags2);
-    assert.isEqual(c.get('a'), 100);
-    assert.isEqual(c.get('b'), 200);
-    assert.isEqual(c.get('c'), 0);
+exports.testVarStack = function() {
+    var vars = new util.VarStack(exports.defaults, exports.config, {});
 
     assert.eq(
-        c.toObject(),
-        { a: 100, b: 200, c: 0 });
+        { a: 100, b: 200, c: 0 },
+        vars.toObject());
 
-    c.push({a: 199, d: 99});
+    vars.push({a: 199, d: 99});
     assert.eq(
-        c.toObject(),
+        vars.toObject(),
         { a: 199, b: 200, c: 0, d: 99 });
 
-    var top = c.pop();
+    var top = vars.pop();
     assert.eq(top, {a: 199, d: 99});
 
     // The same as it was before
     assert.eq(
-        c.toObject(),
+        vars.toObject(),
         { a: 100, b: 200, c: 0 });
 }
 
