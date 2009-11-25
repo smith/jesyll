@@ -55,6 +55,10 @@ exports.testVarStackTemplates = function() {
     // The template is on the same level as the variable here
     assert.isEqual(c.get('spam'), 'spam is ham');
 
+    assert.eq(
+        {foo: "ham", "spam": "spam is ham"},
+        c.toObject());
+
     // Here I change the template
     var o3 = {foo: "ham", $spam: "spam is not {foo}"};
     c.push(o3);
