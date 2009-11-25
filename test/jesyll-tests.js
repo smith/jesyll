@@ -12,7 +12,9 @@ exports.testParseFrontMatter = function() {
 exports.testParseFrontMatterJson = function() {
     assert.eq(
         {title: "Title", layout: "Layout"},
-        jesyll.parseFrontMatter(["  title: Title \n", " layout: Layout \n"]));
+        jesyll.parseFrontMatter(
+            ['{\n', '"title": "Title",', '"layout": "Layout"}'])
+        );
 }
 
 exports.testExtractMetadata = function() {
