@@ -118,7 +118,7 @@ exports.testInfiniteLoop = function() {
     assert.isEqual('eggs', c.get('foo'));
 }
 
-exports.testTemplateWithFileSystem= function() {
+exports.testTemplateWithFileSystem = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", '&spam': "spam-file.txt"};
 
@@ -162,6 +162,12 @@ exports.testPrepend = function() {
     assert.isEqual(c.get('spam'), 'spam is ham');
     assert.isEqual('carol', c.get('name'));
     assert.isEqual(10, c.get('age'));
+}
+
+exports.testLogger = function() {
+    var log = util.Logger(),
+        name = "world";
+    log.info('hello %s', name);
 }
 
 
