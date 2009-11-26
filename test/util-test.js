@@ -164,12 +164,5 @@ exports.testPrepend = function() {
     assert.isEqual(10, c.get('age'));
 }
 
-exports.testLogger = function() {
-    var log = util.Logger(),
-        name = "world";
-    log.info('hello %s', name);
-}
-
-
 if (require.main === module.id)
     require("test/runner").run(exports);
