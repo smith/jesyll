@@ -11,6 +11,11 @@ exports.testLogger = function() {
     logger.warning('warning %s', name);
     logger.error('error %s', name);
     logger.fatal('fatal %s', name);
+
+    logger.push();
+    logger.info('indented %s', name);
+    logger.pop();
+    logger.info('unindented %s', name);
 }
 
 exports.testStatics = function() {
@@ -20,6 +25,11 @@ exports.testStatics = function() {
     log.warning('warning %s', name);
     log.error('error %s', name);
     log.fatal('fatal %s', name);
+
+    log.push();
+    log.info('indented %s', name);
+    log.pop();
+    log.info('unindented %s', name);
 }
 
 if (require.main === module.id)
