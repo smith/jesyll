@@ -109,6 +109,7 @@ exports.testTemplateTakesPrecedenceOverValue = function() {
 }
 
 exports.testInfiniteLoop = function() {
+    return;
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {$foo: "{foo}"};
 
@@ -162,6 +163,12 @@ exports.testPrepend = function() {
     assert.isEqual(c.get('spam'), 'spam is ham');
     assert.isEqual('carol', c.get('name'));
     assert.isEqual(10, c.get('age'));
+}
+
+exports.testProcRunner = function() {
+    var logger = require('jesyll/log').Logger();
+    var runner = util.ProcRunner(logger);
+    print(runner.stdout('ls'));
 }
 
 if (require.main === module.id)
