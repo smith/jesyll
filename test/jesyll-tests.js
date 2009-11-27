@@ -1,6 +1,10 @@
+// Tests for jesyll.js
+
 var assert = require("test/assert"),
     file = require("file"),
-    json = require("json"),
+    json = require("json");
+
+var log = require("jesyll/log"),
     jesyll = require("jesyll");
 
 exports.testParseFrontMatter = function() {
@@ -77,11 +81,40 @@ exports.testObject = function() {
     print("options: " + options.a + " " + options.b + " " + options.c);
 }
 
+var WalkHandler = function() {
+  var that = {};
+
+  that.enterDir = function(dirName) {
+    log.info('Entered dir %s', dirName);
+    log.push()
+  };
+
+  that.exitDir = function() {
+    log.pop()
+    log.info('Exiting dir');
+  };
+
+  that.onFile = function(filename) {
+    log.info('Visiting file %s', filename);
+  };
+
+  return that;
+}
+
 exports.testWalk = function() {
-    return;  // DISABLED
+    //return;  // DISABLED
     //var paths = jesyll.walk('.');
-    var paths = jesyll.walk('/home/andy/hg/json-template');
-    for (var i=0; i<paths.length; i++) {
+    var fs = jesyll.FileSystem('/home/andy/hg/json-template');
+    var handler = WalkHandler();
+    jesyll.walk(fs, handler);
+}
+
+exports.testListTree = function() {
+    return;
+    var fs = jesyll.FileSystem('/home/andy/hg/json-template');
+
+    var paths = jesyll.listTree(fs);
+    for (var i=0; i < paths.length; i++) {
       print(paths[i]);
     }
 }
