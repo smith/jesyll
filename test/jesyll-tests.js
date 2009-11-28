@@ -139,5 +139,11 @@ exports.testFileSystem = function() {
 
 }
 
+exports.testDirMaker = function() {
+    var maker = jesyll.DirMaker(jesyll.FileSystem('/tmp/test'));
+    maker.ensure('foo/bar.txt');
+    maker.ensure('spam/eggs/bar.txt');
+}
+
 if (require.main === module.id)
     require("test/runner").run(exports);
