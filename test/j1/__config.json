@@ -1,5 +1,5 @@
 # Test
-{ "globals": {
+{ "vars": {
     "font-size": "large"
   }
 }
