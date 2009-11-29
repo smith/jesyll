@@ -151,8 +151,8 @@ exports.testPrepend = function() {
 
     var c = util.VarStack(o3, o4);
 
-    assert.isEqual(c.get('foo'), 'ham');
-    assert.isEqual(c.get('spam'), 'spam is ham');
+    assert.isEqual('ham', c.get('foo'));
+    assert.isEqual('spam is ham', c.get('spam'));
 
     var o1 = {name: "bob", age: 10},
         o2 = {name: "carol"};
@@ -160,8 +160,8 @@ exports.testPrepend = function() {
     // Order is: o1, o2, o3, o4
     c.prepend(o1, o2);
 
-    assert.isEqual(c.get('foo'), 'ham');
-    assert.isEqual(c.get('spam'), 'spam is ham');
+    assert.isEqual('ham', c.get('foo'));
+    assert.isEqual('spam is ham', c.get('spam'));
     assert.isEqual('carol', c.get('name'));
     assert.isEqual(10, c.get('age'));
 }
@@ -213,7 +213,7 @@ exports.testStackedContext = function() {
 
 exports.testCompileElement = function() {
   var vars = util.VarStack({foo: 'bar', '$spam': '{foo}'});
-  print(json.stringify(vars._objs()));
+  print('@@@@@@@@ ' + json.stringify(vars._objs()));
 }
 
 exports.testProcRunner = function() {
