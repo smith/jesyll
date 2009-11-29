@@ -211,6 +211,11 @@ exports.testStackedContext = function() {
     print('!! ' + sc.PushSection('dest'));
 }
 
+exports.testCompileElement = function() {
+  var vars = util.VarStack({foo: 'bar', '&spam': '{foo}'});
+  print(vars._objs());
+}
+
 exports.testProcRunner = function() {
     var logger = require('jesyll/log').Logger();
     var runner = util.ProcRunner(logger);
