@@ -198,9 +198,14 @@ exports.testStackedContext = function() {
 
     assert.eq('out.txt', sc.getPath(['dest', 'filename']));
 
-    return;
+    var sc = util.StackedContext(objs);
+    print('dest: ' + sc.PushSection('dest'));
+    assert.eq('/top/lib', sc.get('dir'));
+    assert.eq('out.txt', sc.get('filename'));
 
-    print('!! ' + sc.PushSection('spam'));
+    return;
+    print('foo: ' + sc.PushSection('foo'));
+    assert.eq('ham', sc.get('@'));
 
     var sc = util.StackedContext(objs);
     print('!! ' + sc.PushSection('dest'));
