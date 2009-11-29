@@ -212,8 +212,8 @@ exports.testStackedContext = function() {
 }
 
 exports.testCompileElement = function() {
-  var vars = util.VarStack({foo: 'bar', '&spam': '{foo}'});
-  print(vars._objs());
+  var vars = util.VarStack({foo: 'bar', '$spam': '{foo}'});
+  print(json.stringify(vars._objs()));
 }
 
 exports.testProcRunner = function() {
