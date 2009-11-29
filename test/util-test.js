@@ -213,6 +213,7 @@ exports.testCompileElement = function() {
 }
 
 exports.testProcRunner = function() {
+    return;  // disabled on v8
     var logger = require('jesyll/log').Logger();
     var runner = util.ProcRunner(logger);
     print(runner.stdout('ls'));
