@@ -165,6 +165,15 @@ exports.testPrepend = function() {
     assert.isEqual(10, c.get('age'));
 }
 
+exports.testStackedContext = function() {
+    print('--------------');
+    var o1 = {foo: "bar", spam: "eggs"},
+        o2 = {foo: "ham", $spam: "spam is {foo}"};
+    var sc = util.StackedContext([o1, o2]);
+    print('!! ' + sc.get('foo'));
+    print('!! ' + sc.get('spam'));
+}
+
 exports.testProcRunner = function() {
     var logger = require('jesyll/log').Logger();
     var runner = util.ProcRunner(logger);
