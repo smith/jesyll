@@ -2,6 +2,7 @@
 
 var assert = require("test/assert"),
     util = require("jesyll/util");
+    json = require("json");
 
 exports.setup = function() {
   exports.defaults = {a: 0, b: 0, c: 0};
@@ -167,11 +168,41 @@ exports.testPrepend = function() {
 
 exports.testStackedContext = function() {
     print('--------------');
-    var o1 = {foo: "bar", spam: "eggs"},
-        o2 = {foo: "ham", $spam: "spam is {foo}"};
-    var sc = util.StackedContext([o1, o2]);
-    print('!! ' + sc.get('foo'));
-    print('!! ' + sc.get('spam'));
+    var objs = [
+        // 0
+        { foo: 'bar', spam: 'eggs',
+          dest: { dir: '/home' },
+        },
+        // 1
+        { foo: "ham", 
+          dest: {
+            dir: '/usr/lib',
+            filename: 'out.txt',
+          }
+        },
+        // 2
+        { foo: "ham", $spam: "spam is {foo}",
+          dest: {
+            dir: '/top/lib',
+          }
+        }
+    ];
+
+    var sc = util.StackedContext(objs);
+    print('! foo: ' + sc.getPath(['foo']));
+    print('! spam: ' + sc.getPath(['spam']));
+
+    print('! dest: ' + sc.getPath(['dest']));
+    print('! dest dir: ' + json.stringify(sc.getPath(['dest', 'dir'])));
+
+    print('! dest filename: ' + json.stringify(sc.getPath(['dest', 'filename'])));
+
+    return;
+
+    print('!! ' + sc.PushSection('spam'));
+
+    var sc = util.StackedContext(objs);
+    print('!! ' + sc.PushSection('dest'));
 }
 
 exports.testProcRunner = function() {
