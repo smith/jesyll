@@ -3,6 +3,7 @@
 var assert = require("test/assert"),
     util = require("jesyll/util");
     json = require("json");
+    jsontemplate = require("json-template");
 
 exports.setup = function() {
   exports.defaults = {a: 0, b: 0, c: 0};
@@ -162,7 +163,7 @@ exports.testPrepend = function() {
     assert.isEqual(10, c.get('age'));
 }
 
-exports.testStackedContext = function() {
+exports.testGetPath = function() {
     print('--------------');
     var objs = [
         // 0
@@ -184,32 +185,43 @@ exports.testStackedContext = function() {
         }
     ];
 
-    var sc = util.StackedContext(objs);
-    assert.eq('ham', sc.getPath(['foo']));
+    var varStack = util.VarStack(objs);
+    assert.eq('ham', varStack.getPath(['foo']));
 
-    print('! spam: ' + sc.getPath(['spam']));
+    print('! spam: ' + varStack.getPath(['spam']));
 
-    print('! dest: ' + sc.getPath(['dest']));
-    assert.eq('/top/lib', sc.getPath(['dest', 'dir']));
+    print('! dest: ' + varStack.getPath(['dest']));
+    assert.eq('/top/lib', varStack.getPath(['dest', 'dir']));
 
-    assert.eq('out.txt', sc.getPath(['dest', 'filename']));
+    assert.eq('out.txt', varStack.getPath(['dest', 'filename']));
 
-    var sc = util.StackedContext(objs);
+    // Now test the Stacked Context
+
+    var sc = util.StackedContext(varStack);
     print('dest: ' + sc.PushSection('dest'));
     assert.eq('/top/lib', sc.get('dir'));
     assert.eq('out.txt', sc.get('filename'));
-
-    return;
-    print('foo: ' + sc.PushSection('foo'));
-    assert.eq('ham', sc.get('@'));
-
-    var sc = util.StackedContext(objs);
-    print('!! ' + sc.PushSection('dest'));
 }
 
 exports.testCompileElement = function() {
   var vars = util.VarStack({foo: 'bar', '$spam': '{foo}'});
   print('@@@@@@@@ ' + json.stringify(vars._objs()));
+}
+
+exports.testExpandingTemplateWithStackedContext = function() {
+    print('--------------');
+    var objs = [
+        // 0
+        { 'base-url': 'http://foo.com' },
+        // 1
+        { filename: "foo.py" },
+    ];
+    var vars = util.VarStack(objs);
+    print('%% ' + vars);
+    var context = util.StackedContext(vars);
+    print('%% ' + context);
+    var t = jsontemplate.Template('filename: {filename}');
+    assert.eq('filename: foo.py', t.expand(context));
 }
 
 exports.testProcRunner = function() {
