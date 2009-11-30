@@ -222,6 +222,9 @@ exports.testExpandingTemplateWithStackedContext = function() {
     print('%% ' + context);
     var t = jsontemplate.Template('filename: {filename}');
     assert.eq('filename: foo.py', t.expand(context));
+
+    var t = jsontemplate.Template('base-url: {base-url}');
+    assert.eq('base-url: http://foo.com', t.expand(context));
 }
 
 exports.testProcRunner = function() {
