@@ -227,6 +227,27 @@ exports.testExpandingTemplateWithStackedContext = function() {
     assert.eq('base-url: http://foo.com', t.expand(context));
 }
 
+exports.testTemplateWithPushAndPops = function() {
+    print('--------------');
+    var objs = [
+        { dest: {
+            dir: '/usr/lib',
+          }
+        },
+        { dest: {
+            filename: 'out.txt',
+          }
+        }
+    ];
+    var vars = util.VarStack(objs);
+    var context = util.StackedContext(vars);
+    var t = jsontemplate.Template('{.section dest}{dir}/{filename}{.end}')
+    assert.eq('/usr/lib/out.txt', t.expand(context));
+
+    // TODO: This foo.bar lookup doesn't work.
+    //var t = jsontemplate.Template('{dest.dir}/{dest.filename}')
+}
+
 exports.testProcRunner = function() {
     return;  // disabled on v8
     var logger = require('jesyll/log').Logger();
