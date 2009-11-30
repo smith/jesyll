@@ -245,7 +245,8 @@ exports.testTemplateWithPushAndPops = function() {
     assert.eq('/usr/lib/out.txt', t.expand(context));
 
     // TODO: This foo.bar lookup doesn't work.
-    //var t = jsontemplate.Template('{dest.dir}/{dest.filename}')
+    var t = jsontemplate.Template('{dest.dir}/{dest.filename}')
+    assert.eq('/usr/lib/out.txt', t.expand(context));
 }
 
 exports.testProcRunner = function() {
