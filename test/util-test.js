@@ -2,6 +2,7 @@
 
 var assert = require("test/assert"),
     util = require("jesyll/util");
+    log = require("jesyll/log");
     json = require("json");
     jsontemplate = require("json-template");
 
@@ -45,6 +46,13 @@ exports.testVarStack = function() {
     assert.eq(
         vars.toObject(),
         { a: 100, b: 200, c: 0 });
+
+    // Bug fix for array values
+    var defaults = {
+      'source-extensions': ['markdown', 'json']
+    };
+    var options = util.VarStack(defaults, {});
+    assert.eq(['markdown', 'json'], options.get('source-extensions'));
 }
 
 exports.testVarStackTemplates = function() {
