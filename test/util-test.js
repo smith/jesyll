@@ -55,6 +55,7 @@ exports.testVarStack = function() {
     assert.eq(['markdown', 'json'], options.get('source-extensions'));
 }
 
+// Test that templates work
 exports.testVarStackTemplates = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", $spam: "spam is {foo}"};
@@ -63,25 +64,30 @@ exports.testVarStackTemplates = function() {
 
     assert.isEqual(c.get('foo'), 'ham');
     // The template is on the same level as the variable here
-    assert.isEqual(c.get('spam'), 'spam is ham');
+    assert.isEqual('spam is ham', c.get('spam'));
 
     // Here I change the template
     var o3 = {foo: "ham", $spam: "spam is not {foo}"};
     c.push(o3);
-    assert.isEqual(c.get('spam'), 'spam is not ham');
+    assert.isEqual('spam is not ham', c.get('spam')); 
 }
 
+// Test that a template can use a variable that itself is defined by a template
 exports.testVarStackDoubleTemplates = function() {
     var o1 = {baseUrl: "http://foo", spam: "eggs"};
     var o2 = {$url: "{baseUrl}/index.html"};
-    var o3 = {$link: '<a href="{baseUrl}">Link</a>"'};
+    var o3 = {$link: '<a href="{url}">Link</a>"'};
 
     var vars = util.VarStack(o1, o2);
 
     assert.isEqual('http://foo/index.html', vars.get('url'));
+    print(vars.get('url'));
+
+    vars.push(o3);
 
     assert.isEqual(
         '<a href="http://foo/index.html">Link</a>', vars.get('link'));
+    print(vars.get('link'));
 }
 
 exports.testTemplateBelowValue= function() {
