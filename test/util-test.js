@@ -76,7 +76,7 @@ exports.testVarStackTemplates = function() {
 exports.testVarStackDoubleTemplates = function() {
     var o1 = {baseUrl: "http://foo", spam: "eggs"};
     var o2 = {$url: "{baseUrl}/index.html"};
-    var o3 = {$link: '<a href="{url}">Link</a>"'};
+    var o3 = {$link: '<a href="{url}">Link</a>'};
 
     var vars = util.VarStack(o1, o2);
 
