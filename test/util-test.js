@@ -156,6 +156,33 @@ exports.testTemplateWithFileSystem = function() {
     assert.isEqual('<file contents>', c.get('spam'));
 }
 
+// A variable is a template on a file system
+exports.testTemplateOnFileSystem = function() {
+    var o1 = {baseUrl: "http://foo", spam: "eggs"};
+    var o2 = {$url: "{baseUrl}/index.html"};
+    var o3 = {"&$link": 'dummy'};
+
+    var fs = {
+      contentsOf: function(name) {
+        if (name === 'dummy') {
+          return 'meta: []\n\nIn a file: <a href="[url]">Link</a>';
+        } else {
+          return null;
+        }
+      }
+    }
+
+    var vars = util.VarStack(o1, o2).useFileSystem(fs);
+
+    assert.isEqual('http://foo/index.html', vars.get('url'));
+
+    vars.push(o3);
+
+    assert.isEqual(
+        'In a file: <a href="http://foo/index.html">Link</a>',
+        vars.get('link'));
+}
+
 exports.testPrepend = function() {
     var o3 = {foo: "bar", spam: "eggs"},
         o4 = {foo: "ham", $spam: "spam is {foo}"};
