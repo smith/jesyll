@@ -183,6 +183,35 @@ exports.testTemplateOnFileSystem = function() {
         vars.get('link'));
 }
 
+// A variable is a template for a filename
+exports.testTemplateForFilename = function() {
+    var o1 = {"templates-dir": "custom-templates"};
+    var o2 = {"$&code": '{templates-dir}/{filename}.jsont'};
+    var o3 = {"filename": "javascript"};
+
+    var fs = {
+      contentsOf: function(name) {
+        if (name === 'custom-templates/javascript.jsont') {
+          return 'function () {}';
+        } else if (name === 'custom-templates/python.jsont') {
+          return 'def foo():';
+        } else {
+          return null;
+        }
+      }
+    }
+
+    var vars = util.VarStack(o1, o2).useFileSystem(fs);
+
+    assert.isEqual('custom-templates', vars.get('templates-dir'));
+
+    vars.push(o3);
+    assert.isEqual('function () {}', vars.get('code'));
+
+    vars.push({"filename": "python"});
+    assert.isEqual('def foo():', vars.get('code'));
+}
+
 exports.testPrepend = function() {
     var o3 = {foo: "bar", spam: "eggs"},
         o4 = {foo: "ham", $spam: "spam is {foo}"};
