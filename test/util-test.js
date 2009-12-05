@@ -30,22 +30,10 @@ exports.testVarStack = function() {
 exports.testVarStack = function() {
     var vars = new util.VarStack(exports.defaults, exports.config, {});
 
-    assert.eq(
-        { a: 100, b: 200, c: 0 },
-        vars.toObject());
-
     vars.push({a: 199, d: 99});
-    assert.eq(
-        vars.toObject(),
-        { a: 199, b: 200, c: 0, d: 99 });
 
     var top = vars.pop();
     assert.eq(top, {a: 199, d: 99});
-
-    // The same as it was before
-    assert.eq(
-        vars.toObject(),
-        { a: 100, b: 200, c: 0 });
 
     // Bug fix for array values
     var defaults = {
