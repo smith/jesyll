@@ -1,1 +1,4 @@
-{ "pretty": true }
+{ "vars": { 
+    "pretty": true 
+  }
+}

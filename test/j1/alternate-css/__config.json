@@ -1,3 +1,5 @@
 # This should override ../__config.json
-{ "font-size": "medium"
+{ "vars": {
+    "font-size": "medium"
+  }
 }
