@@ -1,0 +1,4 @@
+# Hidden doc
+{ ".hidden": true,
+  "body": "This should never be seen"
+}
