@@ -2,9 +2,9 @@
 
 <br/>
 Include:
-{include-js}
-{#.section include-js}
+<ul>
+{.repeated section include-js}
   {#TODO: fix @index, @}
-  {#@index}: {#include-js}
-{#.end}
-
+  <li>{#@index}: {@}</li>
+{.end}
+</ul>

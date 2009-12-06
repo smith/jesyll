@@ -312,8 +312,10 @@ exports.testTemplateWithSections = function() {
     var t = jsontemplate.Template('{.section foo}{@}{.end}')
     assert.eq('', t.expand(context));
 
-    var context = util.StackedContext(util.VarStack({foo: 'bar'}));
+    context = util.StackedContext(util.VarStack({bar: true}));
+    assert.eq('', t.expand(context));
 
+    context = util.StackedContext(util.VarStack({foo: 'bar'}));
     assert.eq('bar', t.expand(context));
 }
 
