@@ -263,7 +263,9 @@ exports.testGetPath = function() {
 
 exports.testCompileElement = function() {
   var vars = util.VarStack({foo: 'bar', '$spam': '{foo}'});
-  print('@@@@@@@@ ' + json.stringify(vars._objs()));
+  assert.eq(
+      ['{foo}', '$'],
+      vars._objs()[0].spam.arrayValues);
 }
 
 exports.testExpandingTemplateWithStackedContext = function() {
