@@ -317,6 +317,16 @@ exports.testTemplateWithSections = function() {
     assert.eq('bar', t.expand(context));
 }
 
+exports.testTemplateWithRepeatedSections = function() {
+    var context = util.StackedContext(util.VarStack());  // empty
+    var t = jsontemplate.Template('{.repeated section foo}{@} {.end}')
+    assert.eq('', t.expand(context));
+
+    var context = util.StackedContext(util.VarStack({foo: [1, 2, 3]}));
+
+    assert.eq('1 2 3 ', t.expand(context));
+}
+
 exports.testProcRunner = function() {
     return;  // disabled on v8
     var logger = require('jesyll/log').Logger();
