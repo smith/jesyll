@@ -277,9 +277,7 @@ exports.testExpandingTemplateWithStackedContext = function() {
         { filename: "foo.py" },
     ];
     var vars = util.VarStack(objs);
-    print('%% ' + vars);
     var context = util.StackedContext(vars);
-    print('%% ' + context);
     var t = jsontemplate.Template('filename: {filename}');
     assert.eq('filename: foo.py', t.expand(context));
 
@@ -307,6 +305,16 @@ exports.testTemplateWithPushAndPops = function() {
     // TODO: This foo.bar lookup doesn't work.
     var t = jsontemplate.Template('{dest.dir}/{dest.filename}')
     assert.eq('/usr/lib/out.txt', t.expand(context));
+}
+
+exports.testTemplateWithSections = function() {
+    var context = util.StackedContext(util.VarStack());  // empty
+    var t = jsontemplate.Template('{.section foo}{@}{.end}')
+    assert.eq('', t.expand(context));
+
+    var context = util.StackedContext(util.VarStack({foo: 'bar'}));
+
+    //assert.eq('bar', t.expand(context));
 }
 
 exports.testProcRunner = function() {
