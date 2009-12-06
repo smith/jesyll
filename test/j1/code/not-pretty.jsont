@@ -1,0 +1,13 @@
+---
+pretty: false
+---
+<b>pluginVar:</b> {pluginVar}
+
+<br/>
+Include:
+<ul>
+{.repeated section include-js}
+  {#TODO: fix @index, @}
+  <li>{#@index}: {@}</li>
+{.end}
+</ul>
