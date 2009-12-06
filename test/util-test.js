@@ -256,7 +256,7 @@ exports.testGetPath = function() {
     // Now test the Stacked Context
 
     var sc = util.StackedContext(varStack);
-    print('dest: ' + sc.PushSection('dest'));
+    print('dest: ' + sc.pushName('dest'));
     assert.eq('/top/lib', sc.get('dir'));
     assert.eq('out.txt', sc.get('filename'));
 }

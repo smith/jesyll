@@ -2,8 +2,9 @@
 
 <br/>
 Include:
-{.section include-js}
+{include-js}
+{#.section include-js}
   {#TODO: fix @index, @}
-  {#@index}: {include-js}
-{.end}
+  {#@index}: {#include-js}
+{#.end}
 
