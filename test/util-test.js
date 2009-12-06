@@ -314,7 +314,7 @@ exports.testTemplateWithSections = function() {
 
     var context = util.StackedContext(util.VarStack({foo: 'bar'}));
 
-    //assert.eq('bar', t.expand(context));
+    assert.eq('bar', t.expand(context));
 }
 
 exports.testProcRunner = function() {
