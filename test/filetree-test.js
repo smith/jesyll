@@ -5,6 +5,19 @@ var log = require("jesyll/log");
 
 var filetree = require('jesyll/filetree');  // under test
 
+exports.testJoin = function() {
+  assert.eq('foo/bar', filetree.join('foo', 'bar'));
+  assert.eq('foo/bar', filetree.join('foo/', 'bar'));
+  assert.eq('foo/bar/', filetree.join('foo/', 'bar/'));
+
+  assert.eq('/foo/bar', filetree.join('/foo', 'bar'));
+  assert.eq('/foo/bar', filetree.join('/foo/', 'bar'));
+  assert.eq('/foo/bar/', filetree.join('/foo/', 'bar/'));
+
+  assert.eq('', filetree.join(''));
+  assert.eq('/', filetree.join('/'));
+}
+
 var WalkHandler = function() {
   var that = {};
 
