@@ -1,0 +1,14 @@
+<h2>Docs</h2>
+{.repeated section docs}
+  <a href="{url}">{title}</a><br/>
+{.end}
+
+<h2>All Docs</h2>
+{.repeated section all-docs}
+  <a href="{url}">{title}</a><br/>
+{.end}
+
+<h2>Directories </h2>
+{.repeated section dirs}
+  <a href="{name}">{name}</a><br/>
+{.end}
