@@ -1,3 +1,7 @@
+---
+.index: true
+title: Index of {TODO}
+---
 <h2>Docs</h2>
 {.repeated section docs}
   <a href="{url}">{title}</a><br/>
