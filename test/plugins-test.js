@@ -5,6 +5,12 @@ var assert = require("test/assert");
 var log = require("jesyll/log"),
     plugins = require("jesyll/plugins");
 
+
+exports.testGlobal = function() {
+  // This shouldn't happen, but it does
+  print('injectedGlobal ' + injectedGlobal);
+}
+
 exports.testReadPlugins = function() {
   var fs = {
     contentsOf: function () {
@@ -16,8 +22,23 @@ exports.testReadPlugins = function() {
   assert.eq(3, result.a);
 }
 
+exports.testPluginsDontLeakVars = function() {
+  var fs = {
+    contentsOf: function () {
+      // myVar shouldn't be leaked anywhere
+      return "var myVar = 3; " +
+             "PLUGINS.onDocPush = function() { return {a: 3} };";
+    }
+  }
+  var p = plugins.readPlugins(fs);
+  var result = p.onDocPush();
+  assert.eq(3, result.a);
+  assert.eq("undefined", typeof myVar);
+}
+
 exports.testPluginsDontLeakGlobals = function() {
-  return;  // TODO: Fix
+  // TODO: Detected leaks
+  return;
   var fs = {
     contentsOf: function () {
       // This tries to introduce a new global, but the plugin system disallows
