@@ -1,8 +1,9 @@
-Jesyll
+Recipe
 ======
 
-**Jesyll** is a JavaScript version of
-[Jekyll](http://wiki.github.com/mojombo/jekyll).
+**Recipe** is a static documentation generator.  It started out a bit like
+[Jekyll](http://wiki.github.com/mojombo/jekyll) but is pretty different now.
+It's written in JavaScript on top of [Narwhal](http://narwhaljs.org).
 
 You give it a **source tree** of static files, and it transforms it to another
 directory tree, which is generally a **static website**.
@@ -55,7 +56,7 @@ expansions:
     { "dest-dir": "../my-site",
 
       # Default is {source-dir}/__layouts
-      "layouts-dir": "~/my-jesyll-layouts",   
+      "layouts-dir": "~/my-recipe-layouts",   
 
       # Default is "default", meaning __layouts/default.jsont is used
       "default-layout": "html",
@@ -74,7 +75,7 @@ expansions:
         "dot": "dot {filename}",
       }
       # Lookup variables in here too
-      "$config-base": "~/my-jesyll-config.json"
+      "$config-base": "~/my-recipe-config.json"
     }
 
 #### __layouts
@@ -125,7 +126,7 @@ Notice:
   metadata in the filename.  (This lets you have "clean URLs" without
   extensions, among other things)
 * The `$layout` attribute is not part of the source item.  It is used by
-  the Jesyll engine rather than by JSON Template.
+  the Recipe engine rather than by JSON Template.
 
 Source Items As JSON
 --------------------
@@ -133,20 +134,20 @@ Source Items As JSON
 Source items may also be defined using a **JSON file** rather than a flat file
 with front matter.
 
-Here's how to show a pretty version of the Jesyll source on the web:
+Here's how to show a pretty version of the Recipe source on the web:
 
-jesyll-source.json:
+Recipe-source.json:
 
     { "date": "2009",
-      "filename": "jesyll-source.json",
-      "filepath": "doc/jesyll-source.json",
-      "$filename.code": "jesyll.js"
+      "filename": "recipe-source.json",
+      "filepath": "doc/recipe-source.json",
+      "$filename.code": "recipe.js"
       "$layout": "source-code.jsont"
     }
 
 Evaluates to:
 
-    { "code": "function jesyll() {}",    # Jesyll source code
+    { "code": "function recipe() {}",    # Recipe source code
     }
 
 The `$filename.code` notation is special: it means that the *value* of "code"
@@ -159,4 +160,5 @@ source-code.jsont:
     {code|raw}
     </pre>
 
-In this case, `$layout` defaults to a JSON Template with a similar filename: jesyll-source.jsont.  We override it with a generic code template in this example.
+In this case, `$layout` defaults to a JSON Template with a similar filename:
+recipe-source.jsont.  We override it with a generic code template in this example.
