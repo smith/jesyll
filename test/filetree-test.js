@@ -6,55 +6,45 @@ var log = require("recipe/log");
 var filetree = require('recipe/filetree');  // under test
 
 exports.testJoin = function() {
-  assert.eq('foo/bar', filetree.join('foo', 'bar'));
-  assert.eq('foo/bar', filetree.join('foo/', 'bar'));
-  assert.eq('foo/bar/', filetree.join('foo/', 'bar/'));
-
-  assert.eq('/foo/bar', filetree.join('/foo', 'bar'));
-  assert.eq('/foo/bar', filetree.join('/foo/', 'bar'));
-  assert.eq('/foo/bar/', filetree.join('/foo/', 'bar/'));
-
-  assert.eq('', filetree.join(''));
-  assert.eq('/', filetree.join('/'));
-
-  // Leading slashes: differ from Python's behavior
-  assert.eq('/foo/bar', filetree.join('/foo', '/bar'));
-  assert.eq('/foo/bar', filetree.join('/foo/', '/bar'));
-  assert.eq('/foo/bar/', filetree.join('/foo/', 'bar/'));
-
-  assert.eq('green/eggs/ham', filetree.join('green', 'eggs/ham'));
-  assert.eq('/green/eggs/ham/', filetree.join('/green/eggs/', 'ham/'));
-
-  // Join
   assert.eq('green/./ham', filetree.join('green', './ham'));
   assert.eq('/green/../ham/', filetree.join('/green/../', 'ham/'));
+  assert.eq('green/../ham/', filetree.join('green/../', 'ham/'));
 }
 
 exports.testNormalize = function() {
-  assert.eq('foo/bar', filetree.normalize('foo', 'bar'));
-  assert.eq('foo/bar', filetree.normalize('foo/', 'bar'));
-  assert.eq('foo/bar/', filetree.normalize('foo/', 'bar/'));
-
-  assert.eq('/foo/bar', filetree.normalize('/foo', 'bar'));
-  assert.eq('/foo/bar', filetree.normalize('/foo/', 'bar'));
-  assert.eq('/foo/bar/', filetree.normalize('/foo/', 'bar/'));
-
-  assert.eq('', filetree.normalize(''));
-  assert.eq('/', filetree.normalize('/'));
-
-  // Leading slashes: differ from Python's behavior
-  assert.eq('/foo/bar', filetree.normalize('/foo', '/bar'));
-  assert.eq('/foo/bar', filetree.normalize('/foo/', '/bar'));
-  assert.eq('/foo/bar/', filetree.normalize('/foo/', 'bar/'));
-
-  assert.eq('green/eggs/ham', filetree.normalize('green', 'eggs/ham'));
-  assert.eq('/green/eggs/ham/', filetree.normalize('/green/eggs/', 'ham/'));
-
-  // Normalize
   assert.eq('green/ham', filetree.normalize('green', './ham'));
   assert.eq('/ham/', filetree.normalize('/green/../', 'ham/'));
   assert.eq('ham/', filetree.normalize('green/../', 'ham/'));
 }
+
+// Common behavior between the two
+exports.testNormalizeAndJoin = function() {
+
+  var funcs = [filetree.join, filetree.normalize];
+  for (var i=0; i<funcs.length; i++) {
+    var func = funcs[i];
+
+    assert.eq('', func(''));
+    assert.eq('/', func('/'));
+
+    assert.eq('foo/bar', func('foo', 'bar'));
+    assert.eq('foo/bar', func('foo/', 'bar'));
+    assert.eq('foo/bar/', func('foo/', 'bar/'));
+
+    assert.eq('/foo/bar', func('/foo', 'bar'));
+    assert.eq('/foo/bar', func('/foo/', 'bar'));
+    assert.eq('/foo/bar/', func('/foo/', 'bar/'));
+
+    // Leading slashes: differ from Python's behavior
+    assert.eq('/foo/bar', func('/foo', '/bar'));
+    assert.eq('/foo/bar', func('/foo/', '/bar'));
+    assert.eq('/foo/bar/', func('/foo/', 'bar/'));
+
+    assert.eq('green/eggs/ham', func('green', 'eggs/ham'));
+    assert.eq('/green/eggs/ham/', func('/green/eggs/', 'ham/'));
+  }
+}
+
 
 var WalkHandler = function() {
   var that = {};
