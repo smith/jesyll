@@ -1,7 +1,7 @@
 // Tests for log.js
 
 var assert = require("test/assert"),
-    log = require("jesyll/log");
+    log = require("recipe/log");
 
 exports.testLogger = function() {
     var logger = log.Logger(),

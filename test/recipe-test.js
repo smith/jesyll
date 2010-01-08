@@ -1,11 +1,11 @@
-// Tests for jesyll.js
+// Tests for recipe.js
 
 var assert = require("test/assert"),
     file = require("file"),
     json = require("json");
 
-var log = require("jesyll/log"),
-    jesyll = require("jesyll");
+var log = require("recipe/log"),
+    recipe = require("recipe");
 
 // Demo of Object.create, for posterity
 exports.testObject = function() {

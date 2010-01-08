@@ -1,8 +1,8 @@
 // Tests for util.js
 
 var assert = require("test/assert"),
-    util = require("jesyll/util");
-    log = require("jesyll/log");
+    util = require("recipe/util");
+    log = require("recipe/log");
     json = require("json");
     jsontemplate = require("json-template");
 
@@ -331,7 +331,7 @@ exports.testTemplateWithRepeatedSections = function() {
 
 exports.testProcRunner = function() {
     return;  // disabled on v8
-    var logger = require('jesyll/log').Logger();
+    var logger = require('recipe/log').Logger();
     var runner = util.ProcRunner(logger);
     print(runner.stdout('ls'));
 }

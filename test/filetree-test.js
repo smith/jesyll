@@ -1,9 +1,9 @@
 // Tests for filetree.js
 
 var assert = require("test/assert");
-var log = require("jesyll/log");
+var log = require("recipe/log");
 
-var filetree = require('jesyll/filetree');  // under test
+var filetree = require('recipe/filetree');  // under test
 
 exports.testJoin = function() {
   assert.eq('foo/bar', filetree.join('foo', 'bar'));
@@ -39,8 +39,6 @@ var WalkHandler = function() {
 }
 
 exports.testWalk = function() {
-    //return;  // DISABLED
-    //var paths = jesyll.walk('.');
     var fs = filetree.FileSystem('/home/andy/hg/json-template');
     var handler = WalkHandler();
     filetree.walk(fs, handler);

@@ -2,8 +2,8 @@
 
 var assert = require("test/assert");
 
-var log = require("jesyll/log"),
-    plugins = require("jesyll/plugins");
+var log = require("recipe/log"),
+    plugins = require("recipe/plugins");
 
 
 exports.testGlobal = function() {

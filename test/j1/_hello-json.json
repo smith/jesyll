@@ -6,6 +6,6 @@
   "$filename/code": "hello.py",
 
   "$template": "pretty-source-code",
-  # Configuration for Jesyll, not document data
+  # Configuration for Recipe, not document data
   ".hidden": true
   }
