@@ -24,6 +24,10 @@ exports.testJoin = function() {
 
   assert.eq('green/eggs/ham', filetree.join('green', 'eggs/ham'));
   assert.eq('/green/eggs/ham/', filetree.join('/green/eggs/', 'ham/'));
+
+  // Join
+  assert.eq('green/./ham', filetree.join('green', './ham'));
+  assert.eq('/green/../ham/', filetree.join('/green/../', 'ham/'));
 }
 
 exports.testNormalize = function() {
@@ -45,6 +49,11 @@ exports.testNormalize = function() {
 
   assert.eq('green/eggs/ham', filetree.normalize('green', 'eggs/ham'));
   assert.eq('/green/eggs/ham/', filetree.normalize('/green/eggs/', 'ham/'));
+
+  // Normalize
+  assert.eq('green/ham', filetree.normalize('green', './ham'));
+  assert.eq('/ham/', filetree.normalize('/green/../', 'ham/'));
+  assert.eq('ham/', filetree.normalize('green/../', 'ham/'));
 }
 
 var WalkHandler = function() {
