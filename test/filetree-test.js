@@ -21,6 +21,9 @@ exports.testJoin = function() {
   assert.eq('/foo/bar', filetree.join('/foo', '/bar'));
   assert.eq('/foo/bar', filetree.join('/foo/', '/bar'));
   assert.eq('/foo/bar/', filetree.join('/foo/', 'bar/'));
+
+  assert.eq('green/eggs/ham', filetree.join('green', 'eggs/ham'));
+  assert.eq('/green/eggs/ham/', filetree.join('/green/eggs/', 'ham/'));
 }
 
 exports.testNormalize = function() {
