@@ -17,7 +17,7 @@ exports.testJoin = function() {
   assert.eq('', filetree.join(''));
   assert.eq('/', filetree.join('/'));
 
-  // Leading slashes: differ from Python's behabior
+  // Leading slashes: differ from Python's behavior
   assert.eq('/foo/bar', filetree.join('/foo', '/bar'));
   assert.eq('/foo/bar', filetree.join('/foo/', '/bar'));
   assert.eq('/foo/bar/', filetree.join('/foo/', 'bar/'));
@@ -27,6 +27,24 @@ exports.testJoin = function() {
 }
 
 exports.testNormalize = function() {
+  assert.eq('foo/bar', filetree.normalize('foo', 'bar'));
+  assert.eq('foo/bar', filetree.normalize('foo/', 'bar'));
+  assert.eq('foo/bar/', filetree.normalize('foo/', 'bar/'));
+
+  assert.eq('/foo/bar', filetree.normalize('/foo', 'bar'));
+  assert.eq('/foo/bar', filetree.normalize('/foo/', 'bar'));
+  assert.eq('/foo/bar/', filetree.normalize('/foo/', 'bar/'));
+
+  assert.eq('', filetree.normalize(''));
+  assert.eq('/', filetree.normalize('/'));
+
+  // Leading slashes: differ from Python's behavior
+  assert.eq('/foo/bar', filetree.normalize('/foo', '/bar'));
+  assert.eq('/foo/bar', filetree.normalize('/foo/', '/bar'));
+  assert.eq('/foo/bar/', filetree.normalize('/foo/', 'bar/'));
+
+  assert.eq('green/eggs/ham', filetree.normalize('green', 'eggs/ham'));
+  assert.eq('/green/eggs/ham/', filetree.normalize('/green/eggs/', 'ham/'));
 }
 
 var WalkHandler = function() {
