@@ -16,6 +16,14 @@ exports.testJoin = function() {
 
   assert.eq('', filetree.join(''));
   assert.eq('/', filetree.join('/'));
+
+  // Leading slashes: differ from Python's behabior
+  assert.eq('/foo/bar', filetree.join('/foo', '/bar'));
+  assert.eq('/foo/bar', filetree.join('/foo/', '/bar'));
+  assert.eq('/foo/bar/', filetree.join('/foo/', 'bar/'));
+}
+
+exports.testNormalize = function() {
 }
 
 var WalkHandler = function() {
