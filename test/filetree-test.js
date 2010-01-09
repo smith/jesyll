@@ -107,5 +107,18 @@ exports.testDirMaker = function() {
     maker.ensure('spam/eggs/bar.txt');
 }
 
+function __D_EMBEDDED_TREE() {
+  var data = {};
+  data["archive.jsont"] = ["var foo = \"yo\"\n", "line 2\n" ];
+  return data;
+}
+
+exports.testGelatinEmbeddedTree = function() {
+  var tree = filetree.GelatinEmbeddedTree(__D_EMBEDDED_TREE);
+  print('foo ' + tree.contentsOf('foo', null));
+  print('archive ' + tree.contentsOf('archive.jsont'));
+}
+
+
 if (require.main === module.id)
     require("test/runner").run(exports);
