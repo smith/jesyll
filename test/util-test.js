@@ -2,7 +2,7 @@
 
 var assert = require("test/assert"),
     util = require("recipe/util");
-    log = require("recipe/log");
+    log = require("oil/log");
     json = require("json");
     jsontemplate = require("json-template");
 
@@ -331,7 +331,7 @@ exports.testTemplateWithRepeatedSections = function() {
 
 exports.testProcRunner = function() {
     return;  // disabled on v8
-    var logger = require('recipe/log').Logger();
+    var logger = require('oil/log').Logger();
     var runner = util.ProcRunner(logger);
     print(runner.stdout('ls'));
 }

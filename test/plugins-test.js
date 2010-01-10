@@ -2,7 +2,7 @@
 
 var assert = require("test/assert");
 
-var log = require("recipe/log"),
+var log = require("oil/log"),
     plugins = require("recipe/plugins");
 
 

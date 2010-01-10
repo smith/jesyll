@@ -1,7 +1,7 @@
 // Tests for log.js
 
 var assert = require("test/assert"),
-    log = require("recipe/log");
+    log = require("oil/log");
 
 exports.testLogger = function() {
     var logger = log.Logger(),

@@ -4,7 +4,7 @@ var assert = require("test/assert"),
     file = require("file"),
     json = require("json");
 
-var log = require("recipe/log"),
+var log = require("oil/log"),
     doc = require("recipe/doc");
 
 
