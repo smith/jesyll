@@ -52,5 +52,10 @@ exports.testPluginsDontLeakGlobals = function() {
   assert.eq(3, result.a);
 }
 
+exports.testPluginManager = function() {
+  var fs = {contentsOf: function() return 'yo'};
+  var pm = new plugins.PluginManager(fs);
+}
+
 if (require.main === module.id)
     require("test/runner").run(exports);
