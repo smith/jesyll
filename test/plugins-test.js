@@ -53,7 +53,7 @@ exports.testPluginsDontLeakGlobals = function() {
 }
 
 exports.testPluginManager = function() {
-  var fs = {contentsOf: function() return 'yo'};
+  var fs = {contentsOf: function() { return 'yo'}};
   var pm = new plugins.PluginManager(fs);
 }
 
