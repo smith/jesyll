@@ -11,7 +11,8 @@ exports.setup = function() {
   exports.config = {a: 100, b: 200};
   exports.flags = {a: 3, c: 5};
 
-  exports.vars = util.VarStack(exports.defaults, exports.config, exports.flags);
+  exports.vars = new util.VarStack(
+      exports.defaults, exports.config, exports.flags);
 }
 
 exports.testVarStack = function() {
@@ -39,7 +40,7 @@ exports.testVarStack = function() {
     var defaults = {
       'source-extensions': ['markdown', 'json']
     };
-    var options = util.VarStack(defaults, {});
+    var options = new util.VarStack(defaults, {});
     assert.eq(['markdown', 'json'], options.get('source-extensions'));
 }
 
@@ -48,7 +49,7 @@ exports.testVarStackTemplates = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", $spam: "spam is {foo}"};
 
-    var c = util.VarStack(o1, o2);
+    var c = new util.VarStack(o1, o2);
 
     assert.isEqual(c.get('foo'), 'ham');
     // The template is on the same level as the variable here
@@ -66,7 +67,7 @@ exports.testVarStackDoubleTemplates = function() {
     var o2 = {$url: "{baseUrl}/index.html"};
     var o3 = {$link: '<a href="{url}">Link</a>'};
 
-    var vars = util.VarStack(o1, o2);
+    var vars = new util.VarStack(o1, o2);
 
     assert.isEqual('http://foo/index.html', vars.get('url'));
     print(vars.get('url'));
@@ -82,7 +83,7 @@ exports.testTemplateBelowValue= function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", $spam: "spam is {foo}"};
 
-    var c = util.VarStack(o1, o2);
+    var c = new util.VarStack(o1, o2);
 
     assert.isEqual(c.get('foo'), 'ham');
     assert.isEqual(c.get('spam'), 'spam is ham');
@@ -97,7 +98,7 @@ exports.testTemplateTakesPrecedenceOverValue = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {$foo: "{spam}"};
 
-    var c = util.VarStack(o1);
+    var c = new util.VarStack(o1);
 
     assert.isEqual('bar', c.get('foo'));
 
@@ -113,7 +114,7 @@ exports.testInfiniteLoop = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {$foo: "{foo}"};
 
-    var c = util.VarStack(o1, o2);
+    var c = new util.VarStack(o1, o2);
     print('RUNNING');
 
     assert.isEqual('eggs', c.get('foo'));
@@ -123,7 +124,7 @@ exports.testTemplateWithFileSystem = function() {
     var o1 = {foo: "bar", spam: "eggs"};
     var o2 = {foo: "ham", '&spam': "spam-file.txt"};
 
-    var c = util.VarStack(o1, o2);
+    var c = new util.VarStack(o1, o2);
 
     assert.isEqual(c.get('foo'), 'ham');
     try {
@@ -139,7 +140,7 @@ exports.testTemplateWithFileSystem = function() {
         return '<file contents>';
       }
     }
-    var c = util.VarStack(o1, o2).useFileSystem(fs);
+    var c = new util.VarStack(o1, o2).useFileSystem(fs);
     assert.isEqual('ham', c.get('foo'));
     assert.isEqual('<file contents>', c.get('spam'));
 }
@@ -160,7 +161,7 @@ exports.testTemplateOnFileSystem = function() {
       }
     }
 
-    var vars = util.VarStack(o1, o2).useFileSystem(fs);
+    var vars = new util.VarStack(o1, o2).useFileSystem(fs);
 
     assert.isEqual('http://foo/index.html', vars.get('url'));
 
@@ -189,7 +190,7 @@ exports.testTemplateForFilename = function() {
       }
     }
 
-    var vars = util.VarStack(o1, o2).useFileSystem(fs);
+    var vars = new util.VarStack(o1, o2).useFileSystem(fs);
 
     assert.isEqual('custom-templates', vars.get('templates-dir'));
 
@@ -204,7 +205,7 @@ exports.testPrepend = function() {
     var o3 = {foo: "bar", spam: "eggs"},
         o4 = {foo: "ham", $spam: "spam is {foo}"};
 
-    var c = util.VarStack(o3, o4);
+    var c = new util.VarStack(o3, o4);
 
     assert.isEqual('ham', c.get('foo'));
     assert.isEqual('spam is ham', c.get('spam'));
@@ -243,7 +244,7 @@ exports.testGetPath = function() {
         }
     ];
 
-    var varStack = util.VarStack(objs);
+    var varStack = new util.VarStack(objs);
     assert.eq('ham', varStack.getPath(['foo']));
 
     print('! spam: ' + varStack.getPath(['spam']));
@@ -255,14 +256,14 @@ exports.testGetPath = function() {
 
     // Now test the Stacked Context
 
-    var sc = util.StackedContext(varStack);
+    var sc = new util.StackedContext(varStack);
     print('dest: ' + sc.pushName('dest'));
     assert.eq('/top/lib', sc.get('dir'));
     assert.eq('out.txt', sc.get('filename'));
 }
 
 exports.testCompileElement = function() {
-  var vars = util.VarStack({foo: 'bar', '$spam': '{foo}'});
+  var vars = new util.VarStack({foo: 'bar', '$spam': '{foo}'});
   assert.eq(
       ['{foo}', '$'],
       vars._objs()[0].spam.arrayValues);
@@ -276,8 +277,8 @@ exports.testExpandingTemplateWithStackedContext = function() {
         // 1
         { filename: "foo.py" },
     ];
-    var vars = util.VarStack(objs);
-    var context = util.StackedContext(vars);
+    var vars = new util.VarStack(objs);
+    var context = new util.StackedContext(vars);
     var t = jsontemplate.Template('filename: {filename}');
     assert.eq('filename: foo.py', t.expand(context));
 
@@ -297,8 +298,8 @@ exports.testTemplateWithPushAndPops = function() {
           }
         }
     ];
-    var vars = util.VarStack(objs);
-    var context = util.StackedContext(vars);
+    var vars = new util.VarStack(objs);
+    var context = new util.StackedContext(vars);
     var t = jsontemplate.Template('{.section dest}{dir}/{filename}{.end}')
     assert.eq('/usr/lib/out.txt', t.expand(context));
 
@@ -308,23 +309,23 @@ exports.testTemplateWithPushAndPops = function() {
 }
 
 exports.testTemplateWithSections = function() {
-    var context = util.StackedContext(util.VarStack());  // empty
+    var context = new util.StackedContext(new util.VarStack());  // empty
     var t = jsontemplate.Template('{.section foo}{@}{.end}')
     assert.eq('', t.expand(context));
 
-    context = util.StackedContext(util.VarStack({bar: true}));
+    context = new util.StackedContext(new util.VarStack({bar: true}));
     assert.eq('', t.expand(context));
 
-    context = util.StackedContext(util.VarStack({foo: 'bar'}));
+    context = new util.StackedContext(new util.VarStack({foo: 'bar'}));
     assert.eq('bar', t.expand(context));
 }
 
 exports.testTemplateWithRepeatedSections = function() {
-    var context = util.StackedContext(util.VarStack());  // empty
+    var context = new util.StackedContext(new util.VarStack());  // empty
     var t = jsontemplate.Template('{.repeated section foo}{@} {.end}')
     assert.eq('', t.expand(context));
 
-    var context = util.StackedContext(util.VarStack({foo: [1, 2, 3]}));
+    var context = new util.StackedContext(new util.VarStack({foo: [1, 2, 3]}));
 
     assert.eq('1 2 3 ', t.expand(context));
 }
